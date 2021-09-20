@@ -1,5 +1,3 @@
-import jdk.nashorn.internal.ir.BlockStatement;
-
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -7,7 +5,7 @@ import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.nio.charset.StandardCharsets;
 
-public class Server implements Runnable{
+public class Server implements Runnable {
     private final int PORT;
     private final String HOST;
 
@@ -29,14 +27,14 @@ public class Server implements Runnable{
         System.out.println("Сервер запущен...");
 
         while (true) {
-            try (SocketChannel sc = ssc.accept()){
+            try (SocketChannel sc = ssc.accept()) {
                 final ByteBuffer inputBuffer = ByteBuffer.allocate(2 << 10);
                 String outputText;
-                while (sc.isConnected()){
+                while (sc.isConnected()) {
                     int byteCount = sc.read(inputBuffer);
-                    if(byteCount == -1) break;
+                    if (byteCount == -1) break;
                     final String msg = new String(inputBuffer.array(), 0, byteCount, StandardCharsets.UTF_8);
-                    if(msg.equals("end")) break;
+                    if (msg.equals("end")) break;
                     outputText = new RemoveSpaces().remove(msg);
                     inputBuffer.clear();
                     sc.write(ByteBuffer.wrap(("Результат удаления пробелов:\n" + outputText).getBytes(StandardCharsets.UTF_8)));

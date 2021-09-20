@@ -5,12 +5,9 @@ public class Main {
         final String HOST = "127.0.0.1";
 
         Thread server = new Thread(new Server(PORT, HOST), "server");
-        Thread client = new Thread(new Client(PORT, HOST),"client");
+        Thread client = new Thread(new Client(PORT, HOST), "client");
 
         server.start();
         client.start();
     }
-
-
-
 }
